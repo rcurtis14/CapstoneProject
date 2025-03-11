@@ -1,0 +1,5 @@
+
+Here is your report for Oxygen Level in the provided water sample: 
+Dissolved Oxygen: 5.21                      Saturation Level of Dissolved Oxygen: 52.59%
+Your Oxygen Level of 5.21 requires monitoring. 
+Oxygen levels between 4.0 and 6.5 mg/L are generally considered acceptable for most aquatic life. While some species may still experience stress at the lower end of this range, most fish and organisms can thrive. However, it's important to monitor oxygen levels closely, as prolonged periods near the lower end can still impact the health of sensitive species and disrupt the balance of the ecosystem.

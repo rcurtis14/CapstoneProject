@@ -1,41 +1,72 @@
+import java.util.Comparator;
 import java.util.Date;
 public class BodyOfWater {
-
+//Date	Temperature (°C)	pH	Oxygen Level (mg/L)	Nitrogen Level (mg/L)	Phosphate Level (mg/L)	Ammonia (mg/L)	Nitrate (mg/L)	Nitrite (mg/L)	Calcium (mg/L)	Magnesium (mg/L)	Iodine (mg/L)
     private double temperature;
     private double pH;
-    private double alkalinity;
     private double ammonia;
     private double nitrate;
     private double nitrite;
     private double calcium;
     private double magnesium;
     private double iodine;
-    private double strontium;
     private double oxygenLevel;
     private Date dateRecorded;
     private double nitrogenLevel;
     private double phosphateLevel;
 
+    //Default Constructor
+    public BodyOfWater() {
+        temperature = 0.0;
+        pH = 0.0;
+        ammonia = 0.0;
+        nitrate = 0.0;
+        nitrite = 0.0;
+        calcium = 0.0;
+        magnesium = 0.0;
+        iodine = 0.0;
+        oxygenLevel = 0.0;
+        dateRecorded = null;
+        nitrogenLevel = 0.0;
+        phosphateLevel = 0.0;
 
-    //Constructor
-    public BodyOfWater (double temperature, double pH, double alkalinity, double oxygenLevel, Date dateRecorded, double nitrogenLevel, double phosphateLevel, double ammonia,
-                        double nitrate, double nitrite, double calcium, double magnesium, double iodine, double strontium ) {
+    }
+
+    //Parameterized Constructor
+    //Date	Temperature (°C)	pH	Oxygen Level (mg/L)	Nitrogen Level (mg/L)	Phosphate Level (mg/L)	Ammonia (mg/L)	Nitrate (mg/L)	Nitrite (mg/L)	Calcium (mg/L)	Magnesium (mg/L)	Iodine (mg/L)
+    public BodyOfWater (Date dateRecorded,double temperature, double pH, double oxygenLevel, double nitrogenLevel, double phosphateLevel, double ammonia, double nitrate, double nitrite, double calcium, double magnesium, double iodine) {
         this.temperature = temperature;
         this.pH = pH;
-        this.alkalinity = alkalinity;
         this.ammonia = ammonia;
         this.nitrate = nitrate;
         this.nitrite = nitrite;
         this.calcium = calcium;
         this.magnesium = magnesium;
         this.iodine = iodine;
-        this.strontium = strontium;
         this.oxygenLevel = oxygenLevel;
         this.dateRecorded = dateRecorded;
         this.nitrogenLevel = nitrogenLevel;
         this.phosphateLevel = phosphateLevel;
 
     }
+    //Copy Constructor
+    public BodyOfWater (BodyOfWater bodyOfWater){
+        this.temperature = bodyOfWater.temperature;
+        this.pH = bodyOfWater.pH;
+        this.ammonia = bodyOfWater.ammonia;
+        this.nitrate = bodyOfWater.nitrate;
+        this.nitrite = bodyOfWater.nitrite;
+        this.calcium = bodyOfWater.calcium;
+        this.magnesium = bodyOfWater.magnesium;
+        this.iodine = bodyOfWater.iodine;
+        this.oxygenLevel = bodyOfWater.oxygenLevel;
+        this.dateRecorded = bodyOfWater.dateRecorded;
+        this.nitrogenLevel = bodyOfWater.nitrogenLevel;
+        this.phosphateLevel = bodyOfWater.phosphateLevel;
+    }
+
+
+
     //getter and setter methods
     public void setTemperature (double temperature) {
         this.temperature = temperature;
@@ -85,12 +116,6 @@ public class BodyOfWater {
     public double getIodine () {
         return this.iodine;
     }
-    public void setStrontium (double strontium) {
-        this.strontium = strontium;
-    }
-    public double getStrontium () {
-        return this.strontium;
-    }
     public void setOxygenLevel (double oxygenLevel) {
         this.oxygenLevel = oxygenLevel;
     }
@@ -115,11 +140,17 @@ public class BodyOfWater {
     public double getPhosphorusLevels () {
         return this.phosphateLevel;
     }
-    public void setAlkalinity (double alkalinity) {
-        this.alkalinity = alkalinity;
+    @Override
+    public String toString () {
+        return "Date Recorded: " + dateRecorded;
     }
-    public double getAlkalinity() {
-        return alkalinity;
+}
+//Comparator Class for date Sorting
+class DateComparator implements Comparator<BodyOfWater> {
+
+    @Override
+    public int compare(BodyOfWater o1, BodyOfWater o2) {
+        return o1.getDateRecorded().compareTo(o2.getDateRecorded()) ;
     }
 }
 
