@@ -144,6 +144,7 @@ public class BodyOfWater {
     public String toString () {
         return "Date Recorded: " + dateRecorded;
     }
+
 }
 //Comparator Class for date Sorting
 class DateComparator implements Comparator<BodyOfWater> {
