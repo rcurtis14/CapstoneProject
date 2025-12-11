@@ -140,6 +140,7 @@ public class BodyOfWater {
     public double getPhosphorusLevels () {
         return this.phosphateLevel;
     }
+
     @Override
     public String toString () {
         return "Date Recorded: " + dateRecorded;

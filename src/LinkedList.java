@@ -10,9 +10,11 @@ public class LinkedList {
         head = null;
         tail = null;
     }
+    public Node getHead(){
+        return head;
+    }
 
     public String remove_from_index(int index) {
-        // FIXME
         Node curr = head;
 
         if (head == null) {
@@ -25,11 +27,9 @@ public class LinkedList {
         }
 
         if (curr == head) {
-            return remove_from_head();
-        } else if (curr == tail) {
-            tail.prev.next = null;
-            tail = tail.prev;
-
+            return head.data;
+        } else if (curr.next == null) {
+            return curr.data;
         } else {
             curr.prev.next = curr.next;
             curr.next.prev = curr.prev;
@@ -41,144 +41,58 @@ public class LinkedList {
     }
 
 
-    // insert a card at a specific index
-    public void insert_at_index(String x, int index) {
-        // FIXME
-        Node curr = head;
-        Node previous = null;
-        Node insertValue = new Node(x);
-        int countIndex = 0;
-
-        if (head == null) {
-            head = insertValue;
-
-        }
-        while (curr.next != null) {
-            if (countIndex == index) {
-                break;
-            }
-            previous = curr;
-            countIndex++;
-            curr = curr.next;
-        }
-
-        if (curr == head) {
-
-            insertValue.next = head;
-            head.prev = insertValue;
-            head = insertValue;
-
-        } else if (curr == tail) {
-
-            add_at_tail(x);
-        } else {
-
-            curr.prev.next = insertValue;
-            curr.prev = insertValue;
-            insertValue.next = curr;
-            insertValue.prev = previous;
-
-        }
 
 
-    }
 
 
-    public void swap(int index1, int index2) {
-        // FIXME
-        Node curr = head;
-        Node first = head;
-        int count2 = 0;
-        int count1 = 0;
-        while (curr.next != null && count2 < index2) {
-            if (count2 < index1) {
-                first = first.next;
-                curr = curr.next;
-                count1++;
-                count2++;
-            } else {
-                curr = curr.next;
-                count2++;
-            }
-        }
-        Node temp2 = new Node(curr.data);//saves the data from index 2 node
-        Node temp1 = new Node(first.data);
-        insert_at_index(remove_from_index(count1), count2); // takes the node from count 1 and removes it appending it at count 2
 
-        curr = head;
-        int countFinal = 0;
-        while (curr.data != temp2.data) {
-            countFinal++;
-            curr = curr.next;
-        }
-        insert_at_index(remove_from_index(countFinal), count1);
-
-
-    }
-
-    // add card at the end of the list
-    public void add_at_tail(String data) {
-        // FIXME
-        Node insertValue = new Node(data);
-        if (head == null) {
-            head = insertValue;
-            tail = insertValue;
-
-
-        } else {
-            tail.next = insertValue;
-            insertValue.prev = tail;
-            tail = insertValue;
-        }
-        ;
-    }
 
     // remove a card from the beginning of the list
-    public String remove_from_head() {
-        // FIXME
+    public String returnTail (Node head) {
         Node curr = head;
-
-        if (head == null) {
-            return null;
+        while (curr.next != null) {
+            curr = curr.next;
         }
-        if (head == tail) { //in the case that there is one element in the list
-            head = null;
-            tail = null;
-            return curr.data;
-
-        } else {
-            head = head.next;
-            head.prev.next = null;
-            head.prev = null;
-        }
-
         return curr.data;
+
     }
 
-    public void sortedAppend(Node head, String x) {
+    public Node sortedAppend(String x) {
         Node newNode = new Node(x);
 
+        // If the list is empty, set the new node as the head
         if (head == null) {
             head = newNode;
-
+            return head;  // Return the new head
         }
-        if (compareDates(x, head.data) <= 0){
+
+        // If the new node should be the first node (before the head)
+        if (compareDates(x, head.data) <= 0) {
             newNode.next = head;
             head.prev = newNode;
             head = newNode;
+            return head;  // Return the updated head
         }
+
+        // Traverse the list to find the correct insertion point
         Node curr = head;
         Node previous = null;
-        while (curr.next != null && compareDates(x, curr.data) <= 0) {
+        while (curr != null && compareDates(x, curr.data) > 0) {  // Fix condition here to find proper spot
             previous = curr;
             curr = curr.next;
         }
-        curr.prev.next = newNode;
-        curr.prev = newNode;
-        newNode.next = curr;
-        newNode.prev = previous;
 
+        // Insert the new node in the correct position
+        previous.next = newNode;
+        if (curr != null) {
+            curr.prev = newNode;
+        }
+        newNode.prev = previous;
+        newNode.next = curr;
+
+        return head;  // Return the updated head after insertion
     }
+
     public static int compareDates(String x, String y) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -191,6 +105,22 @@ public class LinkedList {
             System.out.println ("error sorting the dates");
         }
         return 0;
+    }
+    public void print(Node head) {
+        Node curr = head;
+        int i = 1;
+        while(curr != null) {
+            System.out.println(curr.data);
+            if(curr.next != null)
+                System.out.print(" -->  ");
+            else
+                System.out.println(" X");
+
+            if (i % 7 == 0) System.out.println("");
+            i = i + 1;
+            curr = curr.next;
+        }
+        System.out.println("");
     }
 }
 

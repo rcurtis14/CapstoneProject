@@ -16,10 +16,10 @@ public class Temperature {
 
     //create a temperature evaluator method based on the month passed in
     public String EvaluateTemp (int month, int day){
-        String evaluation;
+        String evaluation = "=======Temperature Evaluation==========\n";
         //Evaluates for fall
         if(month == 9 && day >= 22 || month == 10 || month == 11 ){
-            evaluation = "According to your date inputted you are in the season of fall or autumn, with a recorded temperature of " + temperature;
+            evaluation += "According to your date inputted you are in the season of fall or autumn, with a recorded temperature of " + Math.round(temperature * 100.0) / 100.0 + "\n";
             // Low temperature
             if (temperature >= 4.0 && temperature < 6.0 ) {
                 evaluation += "\nIt appears that your body of water's temperature is lower than typical for the Fall/autumn." + "A lower-than-normal water temperature in a body of water can disrupt local ecosystems. " +
@@ -52,7 +52,7 @@ public class Temperature {
         }
         //Evaluates for winter
         else if (month == 12 || month == 1 || month == 2 || month == 3 && day <= 20 ){
-            evaluation = "According to your date inputted you are in the season of winter, with a recorded temperature of " + temperature;
+            evaluation += "According to your date inputted you are in the season of winter, with a recorded temperature of " + + Math.round(temperature * 100.0) / 100.0 + "\n";
             //low temperature
             if (temperature >= 0.0 && temperature <= 2.0 ){
                 evaluation += "\nIt appears that your body of water's temperature is lower than typical for the winter." +
@@ -86,7 +86,7 @@ public class Temperature {
         }
         //evaluates for spring
         else if (month == 3 && day >= 21 || month == 4 || month == 5 || month == 6 && day <= 20 ){
-            evaluation = "According to your date inputted you are in the season of spring, with a recorded temperature of " + temperature;
+            evaluation += "According to your date inputted you are in the season of spring, with a recorded temperature of " + Math.round(temperature * 100.0) / 100.0 + "\n";
             //low temp
             if (temperature >= 2.0 && temperature <= 5.0 ){
                 evaluation += "\nIt appears that your body of water's temperature is lower than typical for the spring." +
@@ -119,7 +119,7 @@ public class Temperature {
         }
         //evaluates for summer
         else if (month == 6 && day >= 20 || month == 7 || month == 8 || month == 9 && day <= 20 ){
-            evaluation = "According to your date inputted you are in the season of summer, with a recorded temperature of " + temperature;
+            evaluation += "According to your date inputted you are in the season of summer, with a recorded temperature of " + Math.round(temperature * 100.0) / 100.0 + "\n";
             //low temp
             if (temperature >= 14 && temperature <= 18){
                 evaluation += "The temperature of your body of water is lower than normal for this time of year." +
@@ -151,6 +151,41 @@ public class Temperature {
             }
         }
         return null;
+    }
+
+    public String EvaluateTempAvg(BodyOfWater entry) {
+        double temperature = entry.getTemperature();
+        String evaluation = "\n======= Temperature Evaluation =======\n";
+        evaluation += "Recorded Temperature: " + Math.round(temperature * 100.0) / 100.0 + "°C\n";
+
+        if (temperature < 2.0) {
+            evaluation += "\nTemperature is extremely low.\n" +
+                    "Such cold water can severely stress aquatic species, slow down metabolism, reduce oxygen availability, and potentially lead to ice formation. " +
+                    "These conditions limit food accessibility, restrict movement, and can result in mortality or migration of temperature-sensitive species.\n" +
+                    " Close monitoring is strongly advised.";
+        } else if (temperature >= 2.0 && temperature < 6.0) {
+            evaluation += "\nTemperature is lower than typical.\n" +
+                    "Cool water temperatures may slow growth and reproduction in aquatic life, impacting species' behavior and survival. " +
+                    "Lower temperatures also affect dissolved oxygen levels, which can stress organisms over time.\n" +
+                    " Monitoring recommended.";
+        } else if (temperature >= 6.0 && temperature <= 15.0) {
+            evaluation += "\nTemperature is in an optimal range.\n" +
+                    "This range supports healthy aquatic ecosystems, maintaining metabolic rates, oxygen levels, and natural seasonal behavior. " +
+                    "Species can thrive with proper food chains and reproduction cycles.\n" +
+                    " No immediate concerns.";
+        } else if (temperature > 15.0 && temperature <= 22.0) {
+            evaluation += "\nTemperature is moderately high.\n" +
+                    "Higher temperatures may begin to stress some aquatic organisms, lower oxygen levels, and alter natural behaviors such as migration or spawning. " +
+                    "Warmer water can also favor harmful algae growth.\n" +
+                    " Monitoring suggested.";
+        } else {
+            evaluation += "\nTemperature is extremely high.\n" +
+                    "Very warm water reduces dissolved oxygen and may result in fish kills, algal blooms, and other ecological disturbances. " +
+                    "Sensitive species may suffer or be replaced by heat-tolerant ones, altering ecosystem dynamics.\n" +
+                    " Immediate attention required.";
+        }
+
+        return evaluation;
     }
 
 }
